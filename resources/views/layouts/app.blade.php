@@ -46,7 +46,7 @@
                     $active = ((bool)$app->pinned === true) ? 'active' : '';
                     ?>
                     <li>{{ $app->title }}<a class="{{ $active }}" data-tag="{{ $tag ?? 0 }}" data-id="{{ $app->id }}" href="{{ route('items.pintoggle', [$app->id]) }}"><i class="fas fa-thumbtack"></i></a></li>
-                    
+
                     @endforeach
                 </ul>
                 @endif
@@ -91,11 +91,11 @@
                     @yield('content')
                     <div id="config-buttons">
 
-                        
+
                         @if(Route::is('dash') || Route::is('tags.show'))
                         <a id="config-button" class="config" href=""><i class="fas fa-exchange"></i></a>
                         @endif
-    
+
                         <a id="dash" class="config" href="{{ route('dash', []) }}"><i class="fas fa-th"></i></a>
                         @if($current_user->id === 1)
                         <a id="users" class="config" href="{{ route('users.index', []) }}"><i class="fas fa-user"></i></a>
@@ -108,10 +108,10 @@
 
             </div>
         </div>
-        <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
         <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
         <script src="{{ asset('js/app.js?v=4') }}"></script>
         @yield('scripts')
-        
+
     </body>
 </html>
