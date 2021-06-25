@@ -101,10 +101,10 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($tag)
     {
         // Get the item
-        $item = Item::find($id);
+        $item = Item::find($tag);
 
         // show the edit form and pass the nerd
         return view('tags.edit')
@@ -118,7 +118,7 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $tag)
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
@@ -137,7 +137,7 @@ class TagController extends Controller
             'url' => $slug
         ]);
 
-        Item::find($id)->update($request->all());
+        Item::find($tag)->update($request->all());
 
         $route = route('dash', []);
         return redirect($route)
@@ -150,16 +150,16 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $tag)
     {
         //
         $force = (bool)$request->input('force');
         if($force) {
             Item::withTrashed()
-                ->where('id', $id)
+                ->where('id', $tag)
                 ->forceDelete();
         } else {
-            Item::find($id)->delete();
+            Item::find($tag)->delete();
         }
         
         $route = route('tags.index', []);

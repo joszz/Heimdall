@@ -210,10 +210,10 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($item)
     {
         // Get the item
-        $data['item'] = Item::find($id);
+        $data['item'] = Item::find($item);
         $data['tags'] = Item::ofType('tag')->orderBy('title', 'asc')->pluck('title', 'id');
         $data['tags']->prepend(__('app.dashboard'), 0);
         $data['current_tags'] = $data['item']->tags();
@@ -230,7 +230,7 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $item)
     {
         $validatedData = $request->validate([
             'title' => 'required|max:255',
@@ -258,7 +258,7 @@ class ItemController extends Controller
         }
 
 
-        $item = Item::find($id);
+        $item = Item::find($item);
         $item->update($request->all());
 
         //Search::storeSearchProvider($request->input('class'), $item);
@@ -276,16 +276,16 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $item)
     {
         //
         $force = (bool)$request->input('force');
         if($force) {
             Item::withTrashed()
-                ->where('id', $id)
+                ->where('id', $item)
                 ->forceDelete();
         } else {
-            Item::find($id)->delete();
+            Item::find($item)->delete();
         }
 
         $route = route('items.index', []);
