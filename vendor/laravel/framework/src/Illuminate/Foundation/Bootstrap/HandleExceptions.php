@@ -29,7 +29,7 @@ class HandleExceptions
     {
         $this->app = $app;
 
-        error_reporting(-1);
+        //error_reporting(-1);
 
         set_error_handler([$this, 'handleError']);
 
